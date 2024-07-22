@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Permissions;
 
-namespace MQTTReader.Models
+namespace App.Models
 {
     public class Device
     {
