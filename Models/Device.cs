@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.Models.App.Models;
+using System;
 using System.Security.Permissions;
 
 namespace App.Models
@@ -36,6 +37,8 @@ namespace App.Models
         public int State { get; set; }
 
         public virtual Branch Branch { get; set; }
+
+        public ICollction<ActualReadings> ActualReading { get; set; }
     }
 }
 
