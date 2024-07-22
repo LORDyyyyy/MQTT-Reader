@@ -1,9 +1,6 @@
 using System;
 namespace App.Models
 {
-using App.Models;
-namespace App.Models {
-
     public class ActualReadings
     {
         public int Id { get; set; }
