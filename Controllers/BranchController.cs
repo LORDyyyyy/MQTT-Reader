@@ -17,7 +17,7 @@ namespace App.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Branch>))]
         public IActionResult GetBranches() {
-            var branches = _branchRepository.GetBranchs();
+            var branches = _branchRepository.GetBranches();
 
             if (!ModelState.IsValid)
             {
