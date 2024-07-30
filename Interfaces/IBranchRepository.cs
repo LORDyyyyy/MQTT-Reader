@@ -6,7 +6,7 @@ namespace App.Interfaces
     {
         ICollection<Branch> GetBranches();
         Branch GetBranch(int id);
-        Device GetDeviceByBranch(int id);
+        ICollection<Device> GetDevicesByBranch(int id);
         void DeleteBranch(int id);
         void AddBranch(Branch branch);
         void UpdateBranch(Branch branch);

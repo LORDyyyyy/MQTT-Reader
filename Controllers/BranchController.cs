@@ -1,5 +1,6 @@
 ﻿using App.Interfaces;
 using App.Models;
+using App.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -26,5 +27,55 @@ namespace App.Controllers
 
             return Ok(branches);
         }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(Branch))]
+        [ProducesResponseType(404)]
+        public IActionResult GetBranch(int id)
+        {
+            var branch = _branchRepository.GetBranch(id);
+            if (branch == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(branch);
+        }
+
+        [HttpGet("{id:int}/devices")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Device>))]
+        [ProducesResponseType(404)]
+        public IActionResult GetDevicesBtBranch(int id)
+        {
+            var devices = _branchRepository.GetDevicesByBranch(id);
+
+            if (devices == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(devices);
+        }
+        /*
+        [HttpPost]
+        [ProducesResponseType(201, Type = typeof(Branch))]
+        [ProducesResponseType(400)]
+        public IActionResult AddBranch([FromBody] Branch branch)
+        {
+            if (branch == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _branchRepository.AddBranch(branch);
+
+            return CreatedAtAction("GetBranch", new { id = branch.Id }, branch);
+        }
+
+        [HttpPut]
+        [P]
+
+        */
     }
+
 }
