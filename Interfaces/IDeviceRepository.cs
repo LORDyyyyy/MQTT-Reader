@@ -1,4 +1,4 @@
-﻿using DeviceApp.Models;
+﻿using App.Models;
 
 namespace DeviceApp.Interfaces
 {
