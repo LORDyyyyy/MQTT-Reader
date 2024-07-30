@@ -1,6 +1,7 @@
 ﻿using App.Data;
 using App.Interfaces;
 using App.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Repository
 {
@@ -22,26 +23,32 @@ namespace App.Repository
             return _context.branches.FirstOrDefault(b => b.Id == id);
         }
 
-        Device IBranchRepository.GetDeviceByBranch(int id)
+        public ICollection<Device> GetDevicesByBranch(int id)
         {
-            var branch = 
-            return _context.branches
+            return _context.devices.Where(b => b.Branch_Id == id).ToList();
         }
 
         void IBranchRepository.UpdateBranch(Branch branch)
         {
-            throw new NotImplementedException();
+            _context.branches.Update(branch);
+            _context.SaveChanges();
         }
 
 
         void IBranchRepository.AddBranch(Branch branch)
         {
-            throw new NotImplementedException();
+            _context.branches.Add(branch);
+            _context.SaveChanges();
         }
 
         void IBranchRepository.DeleteBranch(int id)
         {
-            throw new NotImplementedException();
+            var branch = _context.branches.FirstOrDefault(b => b.Id == id);
+            if (branch != null)
+            {
+                _context.branches.Remove(branch);
+                _context.SaveChanges();
+            }
         }
 
     }
