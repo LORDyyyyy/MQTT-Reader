@@ -5,5 +5,5 @@ Data Source=AHMADMOHSEN\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;
 ---
 
 ```
-"Server=localhost;Database=DB_NAME;User Id=USERNAME;Password=PASSWORD;Encrypt=false;"
+Server=localhost;Database=MQTT;User Id=sa;Password=\"(}0u08KeQt\";Encrypt=false;
 ```
