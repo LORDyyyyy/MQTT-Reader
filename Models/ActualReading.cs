@@ -8,7 +8,6 @@ namespace App.Models
         public int ReadingLKPId { get; set; }
         public decimal ReadingValue { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.Now;
-
         public Device device { get; set; }
         public ReadingLKP readingLKP { get; set; }
 

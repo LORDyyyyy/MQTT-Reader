@@ -25,7 +25,7 @@ namespace App.Repository
 
         public ICollection<Device> GetDevicesByBranch(int id)
         {
-            return _context.devices.Where(b => b.Branch_Id == id).ToList();
+            return _context.devices.Where(b => b.BranchId == id).ToList();
         }
 
         void IBranchRepository.UpdateBranch(Branch branch)

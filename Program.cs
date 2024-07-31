@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using App;
 using App.Services;
 using App.Data;
 using App.Interfaces;
@@ -16,7 +17,6 @@ builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IReadingLKPRepository, ReadingLKPRepository>();
 
 
-
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(
@@ -26,11 +26,23 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 
+if (args.Length >= 1 && args[0].ToLower() == "seeddata")
+    SeedData(app);
+void SeedData(IHost app)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+        Seeder.Seed(dbContext);
+    }
+}
+
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 
 app.MapControllers();

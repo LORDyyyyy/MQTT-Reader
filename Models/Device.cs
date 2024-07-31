@@ -8,8 +8,6 @@ namespace App.Models
     {
         public int Id { get; set; }
 
-        public int Branch_Id { get; set; }
-
         public string Ip { get; set; }
 
         public string Port { get; set; }
@@ -36,6 +34,7 @@ namespace App.Models
 
         public int State { get; set; }
 
+        public int? BranchId { get; set; }
         public virtual Branch Branch { get; set; }
 
         public ICollection<ActualReadings> ActualReading { get; set; }
