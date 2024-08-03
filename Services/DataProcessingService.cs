@@ -26,7 +26,7 @@ namespace App.Services
                 var readingsProcessor = scope.ServiceProvider.GetRequiredService<IReadingsProcessor>();
 
                 Console.WriteLine($"Process will start in {60 - now.Second} seconds");
-                await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
                 Console.WriteLine("Process Started.");
 
                 while (!stoppingToken.IsCancellationRequested)
