@@ -1,7 +1,5 @@
 ﻿using App.Data;
 using App.Models;
-using Microsoft.IdentityModel.Tokens;
-using DeviceApp.Interfaces;
 using App.Interfaces;
 
 namespace App.Repository
@@ -42,7 +40,7 @@ namespace App.Repository
         void IDeviceRepository.DeleteDevice(int Id)
         {
             var device = _context.devices.FirstOrDefault(d => d.Id == Id);
-            if(device != null)
+            if (device != null)
             {
                 _context.devices.Remove(device);
                 _context.SaveChanges();

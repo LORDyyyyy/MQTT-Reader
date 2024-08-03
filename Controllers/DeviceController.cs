@@ -1,7 +1,7 @@
 ﻿
 using App.Data;
 using App.Models;
-using DeviceApp.Interfaces;
+using App.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -27,7 +27,7 @@ namespace App.Controllers
         {
             var device = _deviceRepository.GetDevices();
 
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(device);

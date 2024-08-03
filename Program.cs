@@ -3,7 +3,7 @@ using App;
 using App.Services;
 using App.Data;
 using App.Interfaces;
-using DeviceApp.Interfaces;
+using App.Interfaces;
 using App.Repository;
 
 var builder = WebApplication.CreateBuilder(args);

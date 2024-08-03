@@ -1,7 +1,6 @@
 ﻿using App.Data;
 using App.Interfaces;
 using App.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Repository
 {
@@ -34,7 +33,6 @@ namespace App.Repository
             _context.SaveChanges();
         }
 
-
         void IBranchRepository.AddBranch(Branch branch)
         {
             _context.branches.Add(branch);
@@ -50,6 +48,5 @@ namespace App.Repository
                 _context.SaveChanges();
             }
         }
-
     }
 }
