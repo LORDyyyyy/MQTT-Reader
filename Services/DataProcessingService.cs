@@ -1,26 +1,40 @@
+using App.Interfaces;
+using EasyModbus;
+
 namespace App.Services
 {
     public class DataProcessingService : BackgroundService
     {
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        private readonly IServiceProvider _ServiceProvider;
+        private IConfiguration _configuration;
+        // private IReadingsProcessor readingsProcessor;
+
+        public DataProcessingService(IServiceProvider serviceProvider)
         {
-            var now = DateTime.Now;
-
-            Console.WriteLine($"Process will start in {60 - now.Second} seconds");
-            await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
-
-            Console.WriteLine("Process Started.");
-
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                ProcessDataAsync();
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-            }
+            this._ServiceProvider = serviceProvider;
+            _configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
-        private void ProcessDataAsync()
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine(DateTime.Now);
+            using (var scope = _ServiceProvider.CreateScope())
+            {
+                string ip = _configuration["SlaveIP"] ?? "127.0.0.1";
+                int port = int.Parse(_configuration["SlavePort"] ?? "502");
+                var now = DateTime.Now;
+
+                var readingsProcessor = scope.ServiceProvider.GetRequiredService<IReadingsProcessor>();
+
+                Console.WriteLine($"Process will start in {60 - now.Second} seconds");
+                await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
+                Console.WriteLine("Process Started.");
+
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    readingsProcessor.ProcessData(ip, port);
+                    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                }
+            }
         }
     }
 }

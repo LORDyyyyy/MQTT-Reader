@@ -9,13 +9,16 @@ using App.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IReadingsProcessor, ReadingsProcessor>();
 builder.Services.AddHostedService<DataProcessingService>();
+
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IReadingLKPRepository, ReadingLKPRepository>();
-
+builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
