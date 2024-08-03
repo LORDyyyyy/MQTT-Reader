@@ -1,5 +1,4 @@
 using App.Interfaces;
-using EasyModbus;
 
 namespace App.Services
 {
