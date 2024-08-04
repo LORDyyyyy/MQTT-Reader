@@ -45,40 +45,39 @@ namespace App.Services
 
             Console.WriteLine($"Connected at: {ip}:{port}");
 
-            // this.ReadCoils();
-            // this.ReadDigitalInputs();
-            this.ReadHoldingRegisters();
-            // this.ReadInputRegisters()
+            bool[] readDigitalInputs = this.Read<bool>(this.modbusClient.ReadDiscreteInputs);
+            int[] holdingRegisters = this.Read<int>(this.modbusClient.ReadHoldingRegisters);
+            int[] inputRegisters = this.Read<int>(this.modbusClient.ReadInputRegisters);
+            bool[] readCoils = this.Read<bool>(this.modbusClient.ReadCoils);
+
+            Console.WriteLine("Read Holding Registers:");
+            for (int i = 0; i < holdingRegisters.Length; i++)
+                Console.Write($"{holdingRegisters[i]}" + (i == this.quantity - 1 ? "\n" : " - "));
+
+            Console.WriteLine("Read Input Registers:");
+            for (int i = 0; i < inputRegisters.Length; i++)
+                Console.Write($"{inputRegisters[i]}" + (i == this.quantity - 1 ? "\n" : " - "));
+
+            Console.WriteLine("Read Coils:");
+            for (int i = 0; i < inputRegisters.Length; i++)
+                Console.Write($"{readCoils[i]}" + (i == this.quantity - 1 ? "\n" : " - "));
+
+            Console.WriteLine("Read Digital Inputs:");
+            for (int i = 0; i < inputRegisters.Length; i++)
+                Console.Write($"{readDigitalInputs[i]}" + (i == this.quantity - 1 ? "\n" : " - "));
 
             this.Disconnect();
         }
 
-        public void ReadDigitalInputs(bool save = false)
+        public T[] Read<T>(Func<int, int, T[]> func, bool save = false)
         {
-            throw new NotImplementedException();
-        }
+            T[] readings =
+                func(this.startingAddress, this.quantity);
 
-        public void ReadCoils(bool save = false)
-        {
-            throw new NotImplementedException();
-        }
+            // save readings to database logic
+            if (save) { };
 
-        public void ReadHoldingRegisters(bool save = false)
-        {
-            int[] holdingRegisters =
-                this.modbusClient.ReadHoldingRegisters(this.startingAddress, this.quantity);
-
-            Console.WriteLine("Read Holding Registers:");
-            for (int i = 0; i < holdingRegisters.Length; i++)
-                Console.WriteLine($"Register {this.startingAddress + i}: {holdingRegisters[i]}");
-
-            if (!save)
-                return;
-        }
-
-        public void ReadInputRegisters(bool save = false)
-        {
-            throw new NotImplementedException();
+            return readings;
         }
     }
 }

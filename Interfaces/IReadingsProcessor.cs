@@ -5,9 +5,7 @@ namespace App.Interfaces
         void ProcessData(string ip, int port);
         bool Connect(string ip, int port);
         void Disconnect();
-        void ReadDigitalInputs(bool save = false);
-        void ReadCoils(bool save = false);
-        void ReadHoldingRegisters(bool save = false);
-        void ReadInputRegisters(bool save = false);
+
+        T[] Read<T>(Func<int, int, T[]> func, bool save = false);
     }
 }
