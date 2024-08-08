@@ -1,8 +1,10 @@
 ﻿
-using App.Data;
+using App.DTO;
+using App.DTO.DeviceDTO;
 using App.Models;
 using DeviceApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace App.Controllers
 {
@@ -12,11 +14,14 @@ namespace App.Controllers
     public class DeviceController : Controller
     {
         private readonly IDeviceRepository _deviceRepository;
-//        private readonly DataContext context;
+        private readonly IMapper mapper;
 
-        public DeviceController(IDeviceRepository deviceRepository)//, DataContext context)
+        //        private readonly DataContext context;
+
+        public DeviceController(IDeviceRepository deviceRepository, IMapper mapper)//, DataContext context)
         {
             this._deviceRepository = deviceRepository;
+            this.mapper = mapper;
             //this.context = context;
         }
 
@@ -66,29 +71,34 @@ namespace App.Controllers
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(Device))]
         [ProducesResponseType(400)]
-        public IActionResult AddDevice([FromBody] Device device)
+        public IActionResult AddDevice([FromBody] DeviceDTO deviceDTO)
         {
-            if (device == null)
+            if (deviceDTO == null)
             {
                 return BadRequest(ModelState);
             }
+
+            var device = this.mapper.Map<Device>(deviceDTO);
 
             _deviceRepository.AddDevice(device);
 
             return CreatedAtAction("GetDevice", new { id = device.Id }, device);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(201, Type = typeof(Device))]
         [ProducesResponseType(400)]
-        public IActionResult UpdateDevice([FromBody] Device device)
+        public IActionResult UpdateDevice([FromBody] DeviceDTO deviceDTO)
         {
-            if (device == null)
+            if (deviceDTO== null)
             {
                 return BadRequest(ModelState);
             }
 
-            _deviceRepository.AddDevice(device);
+            var device = this.mapper.Map<Device>(deviceDTO);
+
+
+            _deviceRepository.UpdateDevice(device);
 
             return CreatedAtAction("GetDevice", new { id = device.Id }, device);
         }

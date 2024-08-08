@@ -5,10 +5,12 @@ using App.Data;
 using App.Interfaces;
 using DeviceApp.Interfaces;
 using App.Repository;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
