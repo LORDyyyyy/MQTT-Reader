@@ -24,9 +24,17 @@ namespace App.Controllers
                 return BadRequest(ModelState);
             return Ok(ActualReadings);
         }
-        public IActionResult GetActualReading()
+        public IActionResult GetActualReading(int Id)
         {
-            var ActualReading = _actualReadingRepository.GetActualReading();
+            var ActualReadings = _actualReadingRepository.GetActualReading(Id);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            return Ok(ActualReadings);
+        }
+        public IActionResult GetDivActualReadings(int DivId)
+        {
+            var ActualReadings = _actualReadingRepository.GetDivActualReadings(DivId);
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(ActualReadings);
