@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<DataProcessingService>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IReadingLKPRepository, ReadingLKPRepository>();
+builder.Services.AddScoped<iActualReadingRepository, ActualReadingRepository>();
 
 
 builder.Services.AddDbContext<DataContext>(options =>
