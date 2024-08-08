@@ -12,12 +12,12 @@ namespace App.Controllers
     public class DeviceController : Controller
     {
         private readonly IDeviceRepository _deviceRepository;
-        private readonly DataContext context;
+//        private readonly DataContext context;
 
-        public DeviceController(IDeviceRepository deviceRepository, DataContext context)
+        public DeviceController(IDeviceRepository deviceRepository)//, DataContext context)
         {
-            _deviceRepository = deviceRepository;
-            this.context = context;
+            this._deviceRepository = deviceRepository;
+            //this.context = context;
         }
 
         [HttpGet]
@@ -93,7 +93,17 @@ namespace App.Controllers
             return CreatedAtAction("GetDevice", new { id = device.Id }, device);
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteDevice(int Id)
+        {
+            var device = _deviceRepository.GetDevice(Id);
+            if (device == null)
+            { return NotFound(); }
 
-
+            _deviceRepository.DeleteDevice(Id);
+            return Ok();
+        }
     }
 }

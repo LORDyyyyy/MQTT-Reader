@@ -1,21 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace App.Models
+﻿namespace App.DTO.BranchDTO
 {
-
-    public class Branch
+    public class BranchDTO
     {
-        [Key]
         public int Id { get; set; }
-        [Required]
         public string Address { get; set; } = String.Empty;
-        [Required]
         public string PhoneNumber { get; set; } = String.Empty;
-        [Required]
         public string Email { get; set; } = String.Empty;
-        [Required]
         public string PostalCode { get; set; } = String.Empty;
-        public virtual ICollection<Device> Devices { get; set; }
     }
 }
