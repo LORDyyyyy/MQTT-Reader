@@ -15,12 +15,12 @@ namespace App
                 {
                     new Branch
                     {
-                        Address = "Branch 1", PhoneNumber = "1234567890",
+                        Address = "Branch 1 Address", PhoneNumber = "1234567890",
                         Email = "branch1@example.com", PostalCode = "12345"
                     },
                     new Branch
                     {
-                        Address = "Branch 2", PhoneNumber = "0987654321",
+                        Address = "Branch 2 Address", PhoneNumber = "0987654321",
                         Email = "branch2@example.com", PostalCode = "54321"
                     }
                 };
@@ -39,11 +39,11 @@ namespace App
                     {
                         BranchId = branches[0].Id,
                         Branch = branches[0],
-                        Ip = "192.168.1.1",
-                        Port = "8080",
+                        Ip = "192.168.1.7",
+                        Port = "502",
                         Last_Reading_Time = DateTime.Now,
                         type = "Type1",
-                        Name = "Device1",
+                        Name = "Device 1",
                         Model = "Model1",
                         UserName = "User1",
                         PassWord = "Pass1",
@@ -57,11 +57,11 @@ namespace App
                     {
                         BranchId = branches[1].Id,
                         Branch = branches[1],
-                        Ip = "192.168.1.2",
-                        Port = "8081",
+                        Ip = "192.168.1.7",
+                        Port = "503",
                         Last_Reading_Time = DateTime.Now,
-                        type = "Type2",
-                        Name = "Device2",
+                        type = "Type1",
+                        Name = "Device 2",
                         Model = "Model2",
                         UserName = "User2",
                         PassWord = "Pass2",

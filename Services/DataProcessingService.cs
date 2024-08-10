@@ -19,7 +19,7 @@ namespace App.Services
             var now = DateTime.Now;
 
             Console.WriteLine($"Process will start in {60 - now.Second} seconds");
-            // await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
 
             Console.WriteLine("Process Started.");
 
