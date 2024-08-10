@@ -58,6 +58,7 @@ namespace App.Services
         public async void FireReadingTasks(Device device)
         {
             Console.WriteLine($"Trying to connect to device {device.Id} at {device.Ip}:{device.Port}");
+            System.Console.WriteLine(this.modbusClient.GetHashCode());
             if (!this.Connect(device.Ip, int.Parse(device.Port)))
                 return;
 
