@@ -16,22 +16,24 @@ namespace App.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (var scope = _ServiceProvider.CreateScope())
+            var now = DateTime.Now;
+
+            Console.WriteLine($"Process will start in {60 - now.Second} seconds");
+            // await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
+
+            Console.WriteLine("Process Started.");
+
+            while (!stoppingToken.IsCancellationRequested)
             {
-                string ip = _configuration["SlaveIP"] ?? "127.0.0.1";
-                int port = int.Parse(_configuration["SlavePort"] ?? "502");
-                var now = DateTime.Now;
-
-                var readingsProcessor = scope.ServiceProvider.GetRequiredService<IReadingsProcessor>();
-
-                Console.WriteLine($"Process will start in {60 - now.Second} seconds");
-                await Task.Delay(TimeSpan.FromSeconds(60 - now.Second), stoppingToken);
-                Console.WriteLine("Process Started.");
-
-                while (!stoppingToken.IsCancellationRequested)
+                using (var scope = _ServiceProvider.CreateScope())
                 {
-                    readingsProcessor.ProcessData(ip, port);
+
+                    var readingsProcessor = scope.ServiceProvider.GetRequiredService<IReadingsProcessor>();
+
+                    readingsProcessor.ProcessData();
                     await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
+                    Console.WriteLine(readingsProcessor.GetHashCode());
                 }
             }
         }

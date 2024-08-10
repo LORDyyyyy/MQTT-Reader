@@ -1,11 +1,16 @@
+using App.Models;
+
 namespace App.Interfaces
 {
     public interface IReadingsProcessor
     {
-        void ProcessData(string ip, int port);
+        void ProcessData();
+
         bool Connect(string ip, int port);
         void Disconnect();
 
-        T[] Read<T>(Func<int, int, T[]> func, bool save = false);
+        void FireReadingTasks(Device device);
+
+        T[] Read<T>(Func<int, int, T[]> func);
     }
 }
