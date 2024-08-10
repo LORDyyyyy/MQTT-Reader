@@ -1,7 +1,6 @@
 using EasyModbus;
 using App.Models;
 using App.Interfaces;
-using App.Repository;
 
 namespace App.Services
 {
@@ -9,7 +8,7 @@ namespace App.Services
     {
         public int startingAddress = 0;
         public int quantity = 10;
-        private ModbusClient modbusClient;
+
         private readonly IDeviceRepository deviceRepository;
 
         public ReadingsProcessor(IDeviceRepository deviceRepository)
@@ -17,12 +16,11 @@ namespace App.Services
             this.deviceRepository = deviceRepository;
         }
 
-        public bool Connect(string ip, int port)
+        public bool Connect(ModbusClient modbusClient)
         {
             try
             {
-                this.modbusClient = new ModbusClient(ip, port);
-                this.modbusClient.Connect();
+                modbusClient.Connect();
 
                 return true;
             }
@@ -36,7 +34,7 @@ namespace App.Services
             }
         }
 
-        public void Disconnect()
+        public void Disconnect(ModbusClient modbusClient)
         {
             modbusClient.Disconnect();
 
@@ -57,26 +55,40 @@ namespace App.Services
 
         public async void FireReadingTasks(Device device)
         {
-            Console.WriteLine($"Trying to connect to device {device.Id} at {device.Ip}:{device.Port}");
-            System.Console.WriteLine(this.modbusClient.GetHashCode());
-            if (!this.Connect(device.Ip, int.Parse(device.Port)))
+
+            Console.WriteLine($"Trying to connect to Device {device.Id} at {device.Ip}:{device.Port}");
+
+            var modbusClient = new ModbusClient(device.Ip, int.Parse(device.Port));
+            if (!Connect(modbusClient))
                 return;
 
-            int[] holdingRegisters = this.Read<int>(this.modbusClient.ReadHoldingRegisters);
+            Console.WriteLine(modbusClient.GetHashCode());
+            int[] holdingRegisters = Read<int>(modbusClient.ReadHoldingRegisters);
 
-            Console.WriteLine($"Read Holding Registers for device {device.Id}: ");
+            Console.WriteLine($"Holding Registers for Device {device.Id}: ");
             for (int i = 0; i < holdingRegisters.Length; i++)
-                Console.Write($"{holdingRegisters[i]}" + (i == this.quantity - 1 ? "\n" : " - "));
+                Console.Write($"{holdingRegisters[i]}" + (i == quantity - 1 ? "\n" : " - "));
 
-            this.Disconnect();
+            Disconnect(modbusClient);
         }
 
         public T[] Read<T>(Func<int, int, T[]> func)
         {
-            T[] readings =
-                func(this.startingAddress, this.quantity);
+            try
+            {
+                T[] readings =
+                    func(startingAddress, quantity);
 
-            return readings;
+                return readings;
+            }
+            catch (Exception ex)
+            {
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error: {ex.Message}");
+                Console.ResetColor();
+                return new T[] { };
+            }
         }
     }
 }

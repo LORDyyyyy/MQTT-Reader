@@ -1,4 +1,5 @@
 using App.Models;
+using EasyModbus;
 
 namespace App.Interfaces
 {
@@ -6,8 +7,8 @@ namespace App.Interfaces
     {
         void ProcessData();
 
-        bool Connect(string ip, int port);
-        void Disconnect();
+        bool Connect(ModbusClient modbusClient);
+        void Disconnect(ModbusClient modbusClient);
 
         void FireReadingTasks(Device device);
 
