@@ -2,7 +2,7 @@
 using App.DTO;
 using App.DTO.DeviceDTO;
 using App.Models;
-using DeviceApp.Interfaces;
+using App.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 
@@ -32,7 +32,7 @@ namespace App.Controllers
         {
             var device = _deviceRepository.GetDevices();
 
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(device);

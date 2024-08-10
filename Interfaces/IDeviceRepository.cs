@@ -1,6 +1,6 @@
 ﻿using App.Models;
 
-namespace DeviceApp.Interfaces
+namespace App.Interfaces
 {
     public interface IDeviceRepository
     {
@@ -14,8 +14,6 @@ namespace DeviceApp.Interfaces
         void AddDevice(Device device);
 
         void UpdateDevice(Device device);
-
-
     }
 }
 

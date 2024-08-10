@@ -16,6 +16,6 @@ namespace App.Models
         public string Email { get; set; } = String.Empty;
         [Required]
         public string PostalCode { get; set; } = String.Empty;
-        public virtual ICollection<Device> Devices { get; set; }
+        public virtual ICollection<Device> Devices { get; set; } = new List<Device>();
     }
 }

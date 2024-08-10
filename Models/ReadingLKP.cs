@@ -8,6 +8,6 @@ namespace App.Models
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public string Unit { get; set; } = String.Empty;
-        public virtual ICollection<ActualReadings> ActualReadings { get; set; }
+        public virtual ICollection<ActualReadings> ActualReadings { get; set; } = new List<ActualReadings>();
     }
 }
