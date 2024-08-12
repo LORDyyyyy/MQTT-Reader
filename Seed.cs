@@ -81,9 +81,9 @@ namespace App
             {
                 var readingLKPs = new ReadingLKP[]
                 {
-                    new ReadingLKP { Name = "Power", Unit = "Watt" },
-                    new ReadingLKP { Name = "Voltage", Unit = "Volt" },
-                    new ReadingLKP { Name = "Current", Unit = "Ampere" }
+                    new ReadingLKP { Name = "Power", Unit = "Watt", index = 3 },
+                    new ReadingLKP { Name = "Voltage", Unit = "Volt", index = 1 },
+                    new ReadingLKP { Name = "Current", Unit = "Ampere", index = 2}
                 };
 
                 context.readingLKPs.AddRange(readingLKPs);
