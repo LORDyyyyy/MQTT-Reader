@@ -1,6 +1,7 @@
 ﻿using App.Data;
 using App.Interfaces;
 using App.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace App.Repository
 {
@@ -25,6 +26,11 @@ namespace App.Repository
         public ICollection<ActualReadings> GetDivActualReadings(int DivId)
         {
             return _context.actualReadings.Where(b=>b.DeviceId==DivId).ToList();
+        }
+        public void AddActualReading (ActualReadings ActualReadings)
+        {
+            _context.actualReadings.Add(ActualReadings);
+            _context.SaveChanges();
         }
     }
 }

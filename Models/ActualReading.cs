@@ -10,8 +10,5 @@ namespace App.Models
         public DateTime TimeStamp { get; set; } = DateTime.Now;
         public Device device { get; set; }
         public ReadingLKP readingLKP { get; set; }
-
-
-
     }
 }

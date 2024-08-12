@@ -15,5 +15,9 @@ namespace App.Repository
         {
             return _context.readingLKPs.OrderBy(p => p.Id).ToList();
         }
+        public ReadingLKP GetIndexByName (string name)
+        {
+            return _context.readingLKPs.Where(x => x.Name.CompareTo(name) == 0).FirstOrDefault();
+        }
     }
 }

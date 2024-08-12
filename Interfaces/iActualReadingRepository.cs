@@ -7,5 +7,6 @@ namespace App.Interfaces
         ICollection<ActualReadings> GetActualReadings();
         ActualReadings GetActualReading(int Id);
         ICollection<ActualReadings> GetDivActualReadings(int DivId);
+        void AddActualReading(ActualReadings ActualReadings);
     }
 }

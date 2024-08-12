@@ -16,6 +16,7 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("GetActualReadings")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ActualReadings>))]
         public IActionResult GetActualReadings()
         {
@@ -24,6 +25,9 @@ namespace App.Controllers
                 return BadRequest(ModelState);
             return Ok(ActualReadings);
         }
+        [HttpGet]
+
+        [Route("GetActualReading")]
         public IActionResult GetActualReading(int Id)
         {
             var ActualReadings = _actualReadingRepository.GetActualReading(Id);
@@ -31,6 +35,9 @@ namespace App.Controllers
                 return BadRequest(ModelState);
             return Ok(ActualReadings);
         }
+        [HttpGet]
+
+        [Route("GetDivActualReadings")]
         public IActionResult GetDivActualReadings(int DivId)
         {
             var ActualReadings = _actualReadingRepository.GetDivActualReadings(DivId);
