@@ -13,8 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options => options.AddPolicy(name: "FrontendUI",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }
+));
 
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning); // remove console logging
 
@@ -32,13 +41,13 @@ builder.Services.AddQuartz(q =>
 {
     var jobKey = new JobKey("DataProcessingService");
 
-    q.AddJob<DataProcessingService>(options=>options.WithIdentity(jobKey));
+    q.AddJob<DataProcessingService>(options => options.WithIdentity(jobKey));
 
-    q.AddTrigger(options=> options.ForJob(jobKey).WithIdentity("DataProcessingServiceTrigger").WithCronSchedule("/5 * * ? * *"));
+    q.AddTrigger(options => options.ForJob(jobKey).WithIdentity("DataProcessingServiceTrigger").WithCronSchedule("/5 * * ? * *"));
 
 });
 
-builder.Services.AddQuartzHostedService(q=>q.WaitForJobsToComplete = true);
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 
 
@@ -50,6 +59,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors("FrontendUI");
 
 if (args.Length >= 1 && args[0].ToLower() == "seeddata")
     SeedData(app);
