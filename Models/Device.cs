@@ -12,17 +12,17 @@ namespace App.Models
 
         public string Port { get; set; } = string.Empty;
 
-        public DateTime Last_Reading_Time { get; set; }
+        public DateTime? Last_Reading_Time { get; set; }
 
         public string type { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
 
-        public string Model { get; set; } = string.Empty;
+        public string? Model { get; set; } = string.Empty;
 
-        public string UserName { get; set; } = string.Empty;
+        public string? UserName { get; set; } = string.Empty;
 
-        public string PassWord { get; set; } = string.Empty;
+        public string? PassWord { get; set; } = string.Empty;
 
         public DateTime Installation_Date { get; set; }
 
